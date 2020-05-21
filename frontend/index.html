@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+<!--
+	Theory by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>Micro Google Reviews</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body onload="loadFunc()">
+
+		<!-- Header -->
+			<header id="header">
+				<div class="inner">
+					<a href="index.html" class="logo">Micro Google Reviews</a>
+					<nav id="nav">
+<!-- 						<a href="index.html">Home</a>
+						<a href="generic.html">Generic</a>
+						<a href="elements.html">Elements</a> -->
+					</nav>
+					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+				</div>
+			</header>
+
+		<!-- Banner -->
+			<section id="banner">
+				<h1>Welcome to Micro Google Reviews</h1>
+				<p>Read less. Save time</p>
+			</section>
+
+			<section id="main" class="wrapper" style="margin-top: 5px !important">
+				<div class="inner" style="padding-top: 0px !important">
+					<header class="align-center">
+						<h2>Search a place</h2>
+						<p style="color:  #666666">We will summarize the Google Reviews for you</p>
+								<form method="post" action="#">
+									<div class="row uniform">
+										<div class="9u 12u$(small)">
+											<input type="text" name="query" id="query" value="" placeholder="Enter place name" />
+										</div>
+										<div class="3u$ 12u$(small)">
+											<input type="button" onclick="searchPlace()" value="Search" class="fit" />
+										</div>
+									</div>
+								</form>						
+					</header>
+					<h3 id="content">Full Review</h3>
+					<p id = "review">Praesent ac adipiscing ullamcorper semper ut amet ac risus. Lorem sapien ut odio odio nunc. Ac adipiscing nibh porttitor erat risus justo adipiscing adipiscing amet placerat accumsan. Vis. Faucibus odio magna tempus adipiscing a non. In mi primis arcu ut non accumsan vivamus ac blandit adipiscing adipiscing arcu metus praesent turpis eu ac lacinia nunc ac commodo gravida adipiscing eget accumsan ac nunc adipiscing adipiscing.</p>
+					<div class="row">
+						<div class="6u 12u$(small)">
+							<h3>Micro Review #1</h3>
+							<p id = "summary1">Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat commodo eu sed ante lacinia. Sapien a lorem in integer ornare praesent commodo adipiscing arcu in massa commodo lorem accumsan at odio massa ac ac. Semper adipiscing varius montes viverra nibh in adipiscing blandit tempus accumsan.</p>
+						</div>
+						<div class="6u$ 12u$(small)">
+							<h3>Micro Review #2</h3>
+							<p id = "summary2">In arcu accumsan arcu adipiscing accumsan orci ac. Felis id enim aliquet. Accumsan ac integer lobortis commodo ornare aliquet accumsan erat tempus amet porttitor. Ante commodo blandit adipiscing integer semper orci eget. Faucibus commodo adipiscing mi eu nullam accumsan morbi arcu ornare odio mi adipiscing nascetur lacus ac interdum morbi accumsan vis mi accumsan ac praesent.</p>
+						</div>
+					<!-- <p>We will summarize the Google Reviews for you</p> -->
+				</div>
+			</section>
+
+		<script type="text/javascript">
+			function loadFunc() {
+  							document.getElementById("query").placeholder = "Enter place name";
+   							document.getElementById("query").value = "";
+
+   							document.getElementById("review").innerHTML = "Loading...";
+   							document.getElementById("summary1").innerHTML = "Loading...";
+   							document.getElementById("summary2").innerHTML = "Loading...";
+			}
+
+			function searchPlace() {
+        				   	document.getElementById("review").innerHTML = "Loading...";
+   							document.getElementById("summary1").innerHTML = "Loading...";
+   							document.getElementById("summary2").innerHTML = "Loading...";
+   							getSummary();
+			}
+
+			function getSummary() {
+				var search = document.getElementById("query").value;			
+				console.log(search);
+				var url = "https://838cf639.ngrok.io/getInput/"+search;
+				var xmlHttp = new XMLHttpRequest();
+ 				xmlHttp.onreadystatechange = function() { 
+        			if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+
+        				if(this.responseText) {
+        					var result = JSON.parse(this.responseText);
+    						// console.log(typeof(result));
+     						console.log(result);
+   							document.getElementById("review").innerHTML = result['passage'];
+   							document.getElementById("summary1").innerHTML = result['summary1'];
+   							document.getElementById("summary2").innerHTML = result['summary2'];
+
+        				}
+    				}
+    			};
+    			xmlHttp.open("GET", url, true); // true for asynchronous 
+    			xmlHttp.send(null);
+		
+		}
+		</script>
+
+			<footer id="footer">
+				<div class="inner">
+					<div class="flex">
+						<div class="copyright">
+							&copy; Designed by Dheeraj Mohan | Template from <a href="https://templated.co">TEMPLATED</a>
+						</div>
+<!-- 						<ul class="icons">
+							<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon fa-linkedin"><span class="label">linkedIn</span></a></li>
+							<li><a href="#" class="icon fa-pinterest-p"><span class="label">Pinterest</span></a></li>
+							<li><a href="#" class="icon fa-vimeo"><span class="label">Vimeo</span></a></li>
+						</ul> -->
+					</div>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
